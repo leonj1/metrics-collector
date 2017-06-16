@@ -26,7 +26,7 @@ func main() {
 	router := httprouter.New()
 
 	router.POST("/public/metrics", routes.AddMetric)
-	router.GET("/public/metrics", routes.GetMetrics)
+	router.GET("/public/metrics/:name/:days", routes.GetMetrics)
 
 	log.Println("Starting web server")
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", *serverPort), router))

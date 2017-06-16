@@ -20,7 +20,7 @@ func (p MetricValue) FindByMetricNameBetweenDates(name string, startTime time.Ti
 		return nil, errors.New("Please provide a name, starTime, and endTime")
 	}
 
-	sql := fmt.Sprint("select `name`, `value`, `create_date` from metric_value where `name`=? and `create_date` >=? and `create_date<=?")
+	sql := fmt.Sprint("select `name`, `value`, `create_date` from metric_value where `name`=? and `create_date` >=? and `create_date` <=?")
 	rows, err := db.Query(sql, name, startTime, endTime)
 	if err != nil {
 		return nil, err
