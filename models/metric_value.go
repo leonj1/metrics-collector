@@ -10,7 +10,7 @@ const MetricValueTable = "metric_value"
 
 type MetricValue struct {
 	Id 		int64		`json:"id,string,omitempty"`
-	MetricName	string		`json:"metric_name,string,omitempty"`
+	MetricName	string		`json:"metric_name,omitempty"`
 	Value           int64		`json:"value,string,omitempty"`
 	CreateDate 	time.Time	`json:"create_date,string,omitempty"`
 }
