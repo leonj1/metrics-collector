@@ -27,7 +27,7 @@ func main() {
 	router := httprouter.New()
 
 	router.POST("/public/metrics", routes.AddMetric)
-	router.GET("/public/metrics/:name/:days", routes.GetMetrics)
+	router.GET("/public/metrics/:host/:name/:days", routes.GetMetrics)
 	router.GET("/public/hosts", routes.GetHosts)
 
 	// Add CORS support (Cross Origin Resource Sharing)
