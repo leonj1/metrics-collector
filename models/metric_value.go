@@ -68,7 +68,7 @@ func (p MetricValue) Save() (*MetricValue, error) {
 	if p.Id == 0 {
 		p.CreateDate = time.Now()
 		p.CreateDate.Format(time.RFC3339)
-		sql = fmt.Sprintf("INSERT INTO %s (`name`, `value`, `host`, `create_date`) VALUES (?,?,?)", MetricValueTable)
+		sql = fmt.Sprintf("INSERT INTO %s (`name`, `value`, `host`, `create_date`) VALUES (?,?,?,?)", MetricValueTable)
 	} else {
 		sql = fmt.Sprintf("UPDATE %s SET `name`=?, `value`, `host`, `create_date`=? WHERE `id`=%d", MetricValueTable, p.Id)
 	}
