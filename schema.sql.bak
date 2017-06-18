@@ -4,5 +4,6 @@ create table metric_value (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(256),
   `value` INT NOT NULL,
-  `create_date` TIMESTAMP NOT NULL
+  `create_date` TIMESTAMP NOT NULL,
+  `host` VARCHAR(128) NOT NULL
 )

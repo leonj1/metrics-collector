@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
 	"log"
 	"metrics-collector/models"
 	"metrics-collector/routes"
@@ -27,7 +28,11 @@ func main() {
 
 	router.POST("/public/metrics", routes.AddMetric)
 	router.GET("/public/metrics/:name/:days", routes.GetMetrics)
+	router.GET("/public/hosts", routes.GetHosts)
+
+	// Add CORS support (Cross Origin Resource Sharing)
+	handler := cors.Default().Handler(router)
 
 	log.Println("Starting web server")
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", *serverPort), router))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", *serverPort), handler))
 }

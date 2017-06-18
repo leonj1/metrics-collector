@@ -1,5 +1,5 @@
 .idea
 *.iml
-
+*.json
 metrics-collector
 

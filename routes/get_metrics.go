@@ -9,8 +9,32 @@ import (
 	"time"
 )
 
+func GetHosts(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	var m models.MetricValue
+	metrics, err := m.ListHosts()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	js, err := json.Marshal(&metrics)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set(ContentType, JSON)
+	w.Write(js)
+}
+
 func GetMetrics(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	var m models.MetricValue
+
+	host := ps.ByName("host")
+	if host == "" {
+		http.Error(w, "No host provided", http.StatusBadRequest)
+		return
+	}
 
 	name := ps.ByName("name")
 	if name == "" {
@@ -32,6 +56,7 @@ func GetMetrics(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	numDays = numDays * -1
 
 	metrics, err := m.FindByMetricNameBetweenDates(
+		host,
 		name,
 		time.Now().AddDate(0,0, int(numDays)),
 		time.Now(),
